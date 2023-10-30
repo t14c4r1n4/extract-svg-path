@@ -1,0 +1,27 @@
+// URL zur SVG-Datei
+const svgFileURL = 'deine-svg-datei.svg'; // Passe dies auf die URL deiner SVG-Datei an
+
+// Lade die SVG-Datei
+fetch(svgFileURL)
+  .then(response => response.text())
+  .then(svgText => {
+    // Erstelle ein temporäres HTML-Element (z. B. ein div) und füge den SVG-Text hinzu
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = svgText;
+
+    // Finde das <path>-Element innerhalb des temporären Elements
+    const pathElement = tempDiv.querySelector('path');
+
+    if (pathElement) {
+      // Greife auf den Pfadinhalt (d) des <path>-Elements zu
+      const pathData = pathElement.getAttribute('d');
+
+      // Jetzt enthält "pathData" den Pfadinhalt des <path>-Elements
+      console.log('Pfadinhalt:', pathData);
+    } else {
+      console.log('Kein <path>-Element gefunden');
+    }
+  })
+  .catch(error => {
+    console.error('Fehler beim Laden der SVG-Datei:', error);
+  });
